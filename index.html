@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HTML with Har – Learn HTML</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- INTERNAL CSS -->
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card:#111827;
+      --accent:#38bdf8;
+      --accent2:#22c55e;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body{
+      background:linear-gradient(135deg,#020617,#0f172a);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    /* HEADER */
+    header{
+      padding:20px 40px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      background:rgba(2,6,23,0.85);
+      backdrop-filter:blur(10px);
+      z-index:10;
+    }
+
+    header h1{
+      font-size:1.4rem;
+      color:var(--accent);
+    }
+
+    nav a{
+      color:var(--text);
+      margin-left:20px;
+      text-decoration:none;
+      font-size:0.95rem;
+      transition:0.3s;
+    }
+
+    nav a:hover{color:var(--accent)}
+
+    /* HERO */
+    .hero{
+      padding:100px 20px;
+      text-align:center;
+      animation:fadeUp 1s ease;
+    }
+
+    .hero h2{
+      font-size:2.6rem;
+      margin-bottom:15px;
+    }
+
+    .hero p{
+      max-width:650px;
+      margin:auto;
+      color:var(--muted);
+      font-size:1.05rem;
+    }
+
+    .hero button{
+      margin-top:30px;
+      padding:14px 30px;
+      font-size:1rem;
+      border:none;
+      border-radius:30px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#020617;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .hero button:hover{transform:scale(1.05)}
+
+    /* SECTIONS */
+    section{
+      padding:80px 20px;
+      max-width:1100px;
+      margin:auto;
+    }
+
+    section h3{
+      font-size:2rem;
+      margin-bottom:40px;
+      text-align:center;
+    }
+
+    /* CARDS */
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:rgba(17,24,39,0.85);
+      padding:25px;
+      border-radius:16px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.4);
+      transition:0.4s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card:hover{
+      transform:translateY(-10px) scale(1.02);
+    }
+
+    .card h4{
+      color:var(--accent);
+      margin-bottom:10px;
+    }
+
+    .card p{
+      font-size:0.95rem;
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+
+    .card button{
+      padding:10px 18px;
+      border-radius:20px;
+      border:none;
+      background:var(--accent);
+      color:#020617;
+      cursor:pointer;
+    }
+
+    /* POPUP */
+    .popup{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.6);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:20;
+    }
+
+    .popup-box{
+      background:var(--card);
+      padding:30px;
+      border-radius:20px;
+      max-width:400px;
+      width:90%;
+      text-align:center;
+      animation:scaleIn 0.4s ease;
+    }
+
+    .popup-box h4{margin-bottom:10px;color:var(--accent)}
+    .popup-box p{font-size:0.95rem;color:var(--muted)}
+
+    .popup-box button{
+      margin-top:20px;
+      padding:10px 22px;
+      border:none;
+      border-radius:20px;
+      background:var(--accent);
+      cursor:pointer;
+    }
+
+    footer{
+      padding:30px;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.9rem;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(40px)}
+      to{opacity:1;transform:none}
+    }
+
+    @keyframes scaleIn{
+      from{transform:scale(0.8);opacity:0}
+      to{transform:scale(1);opacity:1}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>HTML with Har</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#chapters">Chapters</a>
+    <a href="#">About</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h2>Learn HTML the Modern Way</h2>
+  <p>Simple explanations, real examples, and chapter‑wise PDFs designed for beginners and students.</p>
+  <button onclick="scrollToChapters()">Explore Chapters</button>
+</div>
+
+<section id="chapters">
+  <h3>Available Chapters</h3>
+  <div class="cards">
+
+    <div class="card">
+      <h4>Chapter 1 – HTML Basics</h4>
+      <p>Understand how the web works, what HTML is, and how browsers read HTML.</p>
+      <button onclick="openPopup()">Buy ₹79</button>
+    </div>
+
+    <div class="card">
+      <h4>Chapter 2 – First HTML Page</h4>
+      <p>Learn tools, editors, and create your first real HTML website.</p>
+      <button disabled>Coming Soon</button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2025 HTML with Har. All rights reserved.
+</footer>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h4>Chapter 1 – HTML Basics</h4>
+    <p>After payment, you will get instant secure access to the PDF.</p>
+    <button onclick="redirectToPayment()">Proceed to Pay</button>
+    <br><br>
+    <button onclick="closePopup()">Cancel</button>
+  </div>
+</div>
+
+<!-- INTERNAL JS -->
+<script>
+  function scrollToChapters(){
+    document.getElementById('chapters').scrollIntoView({behavior:'smooth'});
+  }
+
+  function openPopup(){
+    document.getElementById('popup').style.display='flex';
+  }
+
+  function closePopup(){
+    document.getElementById('popup').style.display='none';
+  }
+
+  function redirectToPayment(){
+    alert('Payment link will be connected here later');
+  }
+</script>
+
+</body>
+</html>
