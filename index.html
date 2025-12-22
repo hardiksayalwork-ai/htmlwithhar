@@ -133,7 +133,8 @@ body.light footer{color:var(--muted-light)}
 <div class="modal" id="formModal">
   <div class="modal-box">
     <h4>Request Course</h4>
-    <input id="name" placeholder="Your Name">
+   <input id="fullName" placeholder="Your Name">
+
     <input id="email" placeholder="Email">
     <input id="phone" placeholder="Phone">
     <input id="course" readonly>
@@ -233,7 +234,8 @@ submitBtn.onclick=()=>{
     "Content-Type": "application/json"
   },
   body: JSON.stringify({
-    name: name.value.trim(),
+    name:document.getElementById("fullName").value
+.trim(),
     email: email.value.trim(),
     phone: phone.value.trim(),
     course: course.value.trim(),
