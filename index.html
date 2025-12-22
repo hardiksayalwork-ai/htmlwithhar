@@ -142,18 +142,18 @@ body.light footer{color:var(--muted-light)}
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyeVsIMhMlvTNfJLT0zl7hyen9mY9ePiArtkYMFBzYEbm56hibcsRFxEIzC4xKQ_9Yuig/exec";
 
 const htmlChapters=[
-"Chapter 1 – HTML Basics",
-"Chapter 2 – Tools & Environment",
-"Chapter 3 – HTML Document Structure",
-"Chapter 4 – Text & Headings",
-"Chapter 5 – Links & Navigation",
-"Chapter 6 – Images & Media",
-"Chapter 7 – Lists",
-"Chapter 8 – Tables",
-"Chapter 9 – Forms",
-"Chapter 10 – Semantic HTML",
-"Chapter 11 – Best Practices",
-"Chapter 12 – Publishing Websites"
+  {name:"Chapter 1 – HTML Basics",preview:"Chapter1_Free_Preview.pdf"},
+  {name:"Chapter 2 – Tools & Environment",preview:"Chapter2_Free_Preview.pdf"},
+  {name:"Chapter 3 – HTML Document Structure",preview:"Chapter3_Free_Preview.pdf"},
+  {name:"Chapter 4 – Text & Headings",preview:"Chapter4_Free_Preview.pdf"},
+  {name:"Chapter 5 – Links & Navigation",preview:"Chapter5_Free_Preview.pdf"},
+  {name:"Chapter 6 – Images & Media",preview:"Chapter6_Free_Preview.pdf"},
+  {name:"Chapter 7 – Lists",preview:"Chapter7_Free_Preview.pdf"},
+  {name:"Chapter 8 – Tables",preview:"Chapter8_Free_Preview.pdf"},
+  {name:"Chapter 9 – Forms",preview:"Chapter9_Free_Preview.pdf"},
+  {name:"Chapter 10 – Semantic HTML",preview:"Chapter10_Free_Preview.pdf"},
+  {name:"Chapter 11 – Best Practices",preview:"Chapter11_Free_Preview.pdf"},
+  {name:"Chapter 12 – Publishing Websites",preview:"Chapter12_Free_Preview.pdf"}
 ];
 
 function toggleTheme(){document.body.classList.toggle('light')}
@@ -163,16 +163,16 @@ function openHTML(){
   const wrap=document.getElementById('htmlCards');
   wrap.innerHTML=htmlChapters.map(c=>`
     <div class="card">
-      <h4>${c}</h4>
-      <div class="price">₹15</div>
+      <h4>${c.name}</h4>
+      <div class="price"><del>₹20</del> <strong>₹15</strong> <span style="font-size:.8rem;color:#22c55e">(25% OFF)</span></div>
       <div class="actions">
-        <button onclick="openForm('${c}')">Request</button>
-        <button class="preview" onclick="window.open('Chapter1_Free_Preview.pdf','_blank')">Preview</button>
+        <button onclick="openForm('${c.name}')">Request</button>
+        <button class="preview" onclick="window.open('${c.preview}','_blank')">Preview</button>
       </div>
     </div>`).join('') + `
     <div class="card">
-      <h4>Complete HTML Book</h4>
-      <div class="price">₹179</div>
+      <h4>Complete HTML Book (All 12 Chapters)</h4>
+      <div class="price"><del>₹299</del> <strong>₹179</strong> <span style="font-size:.8rem;color:#22c55e">(40% OFF – Best Value)</span></div>
       <div class="actions">
         <button onclick="openForm('Full HTML Book')">Request</button>
         <button class="preview" onclick="window.open('Chapter1_Free_Preview.pdf','_blank')">Preview</button>
@@ -180,6 +180,7 @@ function openHTML(){
     </div>`;
   document.getElementById('htmlChapters').style.display='block';
   document.getElementById('htmlChapters').scrollIntoView({behavior:'smooth'});
+}
 }
 
 function openForm(product){
