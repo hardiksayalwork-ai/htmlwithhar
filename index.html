@@ -1,174 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Improve Your Skills</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>Improve Your Skills</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    :root{
-      --bg-dark:#0b1020;--bg-light:#f4f6fb;
-      --card-dark:#151a2e;--card-light:#ffffff;
-      --text-dark:#e8ebff;--text-light:#111827;
-      --muted-dark:#9aa3c7;--muted-light:#4b5563;
-      --accent:#4f8cff;--accent2:#22c55e;
-    }
-    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    body{background:var(--bg-dark);color:var(--text-dark);transition:.3s;cursor:none}
-    body.light{background:var(--bg-light);color:var(--text-light)}
+<style>
+:root{
+  --bg:#0b1020;
+  --bg2:#0f172a;
+  --card:#151a2e;
+  --text:#e8ebff;
+  --muted:#9aa3c7;
+  --accent:#4f8cff;
+  --accent2:#22c55e;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text);cursor:none}
 
-    /* Custom Cursor */
-    .cursor{position:fixed;width:14px;height:14px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:999;transform:translate(-50%,-50%)}
+/* Cursor */
+.cursor{position:fixed;width:14px;height:14px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:1000}
 
-    header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px 32px;background:rgba(11,16,32,.8);backdrop-filter:blur(12px)}
-    body.light header{background:rgba(255,255,255,.85)}
-    header h1{color:var(--accent)}
-    nav a{margin:0 12px;font-size:.95rem}
-    header button{padding:8px 16px;border-radius:999px;border:none;background:var(--accent);color:white;cursor:pointer}
+/* Navbar */
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:16px 36px;background:rgba(11,16,32,.85);backdrop-filter:blur(12px)}
+header h1{color:var(--accent);cursor:pointer}
+nav a{margin:0 10px;padding:8px 16px;border-radius:999px;transition:.3s}
+nav a:hover{background:var(--accent);color:#020617}
 
-    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.4))}
-    .hero h2{font-size:3rem;margin-bottom:14px}
-    .hero p{max-width:700px;color:var(--muted-dark)}
-    body.light .hero p{color:var(--muted-light)}
-    .hero button{margin-top:36px;padding:16px 42px;border:none;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#020617;font-size:1.05rem;cursor:pointer}
+/* Hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px;position:relative}
+.hero::after{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1526378722445-60b1f6f8f3aa') center/cover fixed;opacity:.15;z-index:-1}
+.hero h2{font-size:3.2rem;margin-bottom:14px}
+.hero p{max-width:720px;color:var(--muted)}
+.hero button{margin-top:36px;padding:16px 44px;border:none;border-radius:999px;font-size:1.05rem;background:linear-gradient(90deg,var(--accent),var(--accent2));cursor:pointer}
 
-    section{max-width:1200px;margin:auto;padding:100px 24px}
-    section h3{text-align:center;font-size:2.4rem;margin-bottom:50px}
+section{max-width:1200px;margin:auto;padding:100px 24px}
+section h3{text-align:center;font-size:2.4rem;margin-bottom:60px}
 
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
-    .card{background:var(--card-dark);padding:26px;border-radius:20px;box-shadow:0 25px 50px rgba(0,0,0,.35);transition:.4s}
-    body.light .card{background:var(--card-light)}
-    .card:hover{transform:translateY(-12px) scale(1.03)}
-    .card h4{color:var(--accent);margin-bottom:10px}
-    .card p{color:var(--muted-dark);font-size:.95rem;margin-bottom:18px}
-    body.light .card p{color:var(--muted-light)}
-    .card button{padding:10px 22px;border-radius:999px;border:none;background:var(--accent);color:white;cursor:pointer}
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
+.card{background:var(--card);padding:26px;border-radius:22px;box-shadow:0 30px 60px rgba(0,0,0,.45);transition:.4s}
+.card:hover{transform:translateY(-12px) scale(1.03)}
+.card h4{color:var(--accent);margin-bottom:10px}
+.card p{color:var(--muted);font-size:.95rem;margin-bottom:18px}
+.card .price{margin-bottom:16px}
+.card .actions{display:flex;gap:10px}
+.card button{flex:1;padding:10px;border:none;border-radius:999px;background:var(--accent);cursor:pointer}
+.card .preview{background:#374151}
 
-    #htmlChapters{display:none}
-    .price{font-size:1.05rem;margin-bottom:14px}
+#htmlChapters{display:none}
 
-    /* Modals */
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;justify-content:center;align-items:center;z-index:200}
-    .modal-box{background:var(--card-dark);padding:32px;border-radius:22px;max-width:520px;width:92%;max-height:85vh;overflow:auto}
-    body.light .modal-box{background:var(--card-light)}
-    .modal-box h4{color:var(--accent);margin-bottom:16px}
-    .modal-box input,.modal-box select{width:100%;padding:10px 14px;margin-bottom:12px;border-radius:10px;border:1px solid #374151;background:transparent;color:inherit}
-    .modal-box button{width:100%;padding:12px;border:none;border-radius:999px;background:var(--accent);color:white;cursor:pointer;margin-top:10px}
-    .close{background:#374151}
+/* Modals */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;justify-content:center;align-items:center;z-index:200}
+.modal-box{background:var(--card);padding:32px;border-radius:22px;max-width:520px;width:92%;max-height:85vh;overflow:auto}
+.modal-box h4{color:var(--accent);margin-bottom:18px}
+.modal-box input{width:100%;padding:12px;margin-bottom:12px;border-radius:12px;border:1px solid #374151;background:transparent;color:inherit}
+.modal-box button{width:100%;padding:12px;border:none;border-radius:999px;background:var(--accent);margin-top:10px;cursor:pointer}
+.modal-box .cancel{background:#374151}
 
-    footer{text-align:center;padding:60px 20px;color:var(--muted-dark)}
-    body.light footer{color:var(--muted-light)}
-  </style>
+footer{text-align:center;padding:80px 20px;color:var(--muted)}
+
+</style>
 </head>
 <body>
 <div class="cursor" id="cursor"></div>
 
 <header>
-  <h1>Improve Your Skills</h1>
+  <h1 onclick="scrollToTop()">Improve Your Skills</h1>
   <nav>
     <a href="#">Home</a>
     <a href="#courses">Courses</a>
     <a href="#about">About</a>
   </nav>
-  <button onclick="toggleTheme()">Theme</button>
 </header>
 
 <div class="hero">
   <h2>Improve Your Skills</h2>
-  <p>Learn modern skills with affordable, student-friendly courses designed for beginners.</p>
+  <p>Affordable, student-friendly courses designed to help you learn real skills step by step.</p>
   <button onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Explore Courses</button>
 </div>
 
 <section id="courses">
-  <h3>Courses</h3>
-  <div class="cards">
-    <div class="card"><h4>HTML</h4><p>Web foundations.</p><button onclick="openHTML()">Explore Chapters</button></div>
-    <div class="card"><h4>CSS</h4><p>Styling & layouts.</p><button disabled>Coming Soon</button></div>
-    <div class="card"><h4>Python</h4><p>Programming basics.</p><button disabled>Coming Soon</button></div>
-    <div class="card"><h4>C</h4><p>Core programming.</p><button disabled>Coming Soon</button></div>
-    <div class="card"><h4>C++</h4><p>OOP concepts.</p><button disabled>Coming Soon</button></div>
-    <div class="card"><h4>Canva</h4><p>Design skills.</p><button disabled>Coming Soon</button></div>
-  </div>
+<h3>Courses</h3>
+<div class="cards">
+  <div class="card"><h4>HTML</h4><p>Web foundations.</p><button onclick="openHTML()">Explore Chapters</button></div>
+  <div class="card"><h4>CSS</h4><p>Styling & layouts.</p><button disabled>Coming Soon</button></div>
+  <div class="card"><h4>Python</h4><p>Programming basics.</p><button disabled>Coming Soon</button></div>
+  <div class="card"><h4>C</h4><p>Core programming.</p><button disabled>Coming Soon</button></div>
+  <div class="card"><h4>C++</h4><p>Object-oriented programming.</p><button disabled>Coming Soon</button></div>
+  <div class="card"><h4>Canva</h4><p>Design skills.</p><button disabled>Coming Soon</button></div>
+</div>
 </section>
 
 <section id="htmlChapters">
-  <h3>HTML Chapters</h3>
-  <div class="cards">
-    <div class="card"><h4>Chapter 1 – HTML Basics</h4><div class="price">₹15</div><button onclick="openForm('HTML','Chapter 1 – HTML Basics')">Request</button></div>
-    <div class="card"><h4>Chapter 2 – Tools & Setup</h4><div class="price">₹15</div><button onclick="openForm('HTML','Chapter 2 – Tools & Setup')">Request</button></div>
-    <div class="card"><h4>Chapter 3 – Structure</h4><div class="price">₹15</div><button onclick="openForm('HTML','Chapter 3 – Structure')">Request</button></div>
-    <div class="card"><h4>Complete HTML Book</h4><div class="price">₹179</div><button onclick="openForm('HTML','Full HTML Book')">Request</button></div>
-  </div>
+<h3>HTML Chapters</h3>
+<div class="cards">
+<script>
+const chapters=[
+"Chapter 1 – Introduction to HTML",
+"Chapter 2 – Tools & Environment",
+"Chapter 3 – HTML Document Structure",
+"Chapter 4 – Text & Headings",
+"Chapter 5 – Links & Navigation",
+"Chapter 6 – Images & Media",
+"Chapter 7 – Lists",
+"Chapter 8 – Tables",
+"Chapter 9 – Forms",
+"Chapter 10 – Semantic HTML",
+"Chapter 11 – Best Practices",
+"Chapter 12 – Publishing Websites"
+];
+</script>
+</div>
 </section>
 
-<!-- FORM STEP 1 -->
+<!-- Request Modal -->
 <div class="modal" id="formModal">
-  <div class="modal-box">
-    <h4>Request Course</h4>
-    <input id="name" placeholder="Your Name" />
-    <input id="email" placeholder="Email" />
-    <input id="phone" placeholder="Phone" />
-    <input id="course" readonly />
-    <input id="product" readonly />
-    <button onclick="openTerms()">Next</button>
-    <button class="close" onclick="closeAll()">Cancel</button>
-  </div>
+<div class="modal-box">
+<h4>Request Course</h4>
+<input id="name" placeholder="Your Name">
+<input id="email" placeholder="Email">
+<input id="phone" placeholder="Phone">
+<input id="product" readonly>
+<button onclick="openTerms()">Next</button>
+<button class="cancel" onclick="closeAll()">Cancel</button>
+</div>
 </div>
 
-<!-- TERMS STEP -->
+<!-- Terms Modal -->
 <div class="modal" id="termsModal">
-  <div class="modal-box">
-    <h4>TERMS & CONDITIONS</h4>
-    <p style="font-size:.9rem;line-height:1.6">
-      • This is a digital educational product.<br>
-      • Content may be AI-assisted and curated for learning.<br>
-      • Files are for personal use only.<br>
-      • Sharing or redistribution is not allowed.<br>
-      • This is a manual process; delivery is not instant.<br>
-      • Payments once made are non-refundable.<br>
-      • Incorrect details may delay delivery.
-    </p>
-    <button onclick="submitForm()">I Agree & Submit Request</button>
-    <button class="close" onclick="closeAll()">Cancel</button>
-  </div>
+<div class="modal-box">
+<h4><b>TERMS & CONDITIONS</b></h4>
+<p style="font-size:.9rem;line-height:1.6">
+• Digital educational content<br>
+• AI-assisted content<br>
+• Personal use only<br>
+• No sharing or resale<br>
+• Manual delivery after payment<br>
+• Non-refundable payments
+</p>
+<button onclick="submitForm()">I Agree & Submit Request</button>
+<button class="cancel" onclick="closeAll()">Cancel</button>
+</div>
 </div>
 
 <footer id="about">
-  <h4>About Improve Your Skills</h4>
-  <p>Improve Your Skills is a student-focused learning initiative providing affordable and beginner-friendly educational resources.</p>
+<h4>About Improve Your Skills</h4>
+<p>Improve Your Skills is a student-focused learning platform offering affordable and beginner-friendly resources.</p>
 </footer>
 
 <script>
-  const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
-  const cursor=document.getElementById('cursor');
-  document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
-
-  function toggleTheme(){document.body.classList.toggle('light')}
-  function openHTML(){document.getElementById('htmlChapters').style.display='block';document.getElementById('htmlChapters').scrollIntoView({behavior:'smooth'})}
-
-  function openForm(course,product){
-    document.getElementById('formModal').style.display='flex';
-    document.getElementById('course').value=course;
-    document.getElementById('product').value=product;
-  }
-
-  function openTerms(){document.getElementById('formModal').style.display='none';document.getElementById('termsModal').style.display='flex'}
-  function closeAll(){document.getElementById('formModal').style.display='none';document.getElementById('termsModal').style.display='none'}
-
-  function submitForm(){
-    const data={
-      name:document.getElementById('name').value,
-      email:document.getElementById('email').value,
-      phone:document.getElementById('phone').value,
-      course:document.getElementById('course').value,
-      product:document.getElementById('product').value
-    };
-    fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify(data)})
-      .then(()=>{
-        alert('Request has been submitted. You will soon receive the payment details in your mail. Please keep checking your email for them.');
-        closeAll();
-      });
-  }
+const SCRIPT_URL="PASTE_YOUR_APPS_SCRIPT_URL_HERE";
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function openHTML(){
+ document.getElementById('htmlChapters').style.display='block';
+ document.querySelector('#htmlChapters .cards').innerHTML=chapters.map(c=>`
+ <div class="card">
+  <h4>${c}</h4>
+  <div class="price">₹15</div>
+  <div class="actions">
+   <button onclick="openForm('${c}')">Request</button>
+   <button class="preview" onclick="window.open('HTML_Preview.pdf','_blank')">Preview</button>
+  </div>
+ </div>`).join('')+`
+ <div class="card"><h4>Complete HTML Book</h4><div class="price">₹179</div><div class="actions"><button onclick="openForm('Full HTML Book')">Request</button><button class="preview">Preview</button></div></div>`;
+ document.getElementById('htmlChapters').scrollIntoView({behavior:'smooth'});
+}
+function openForm(p){document.getElementById('formModal').style.display='flex';document.getElementById('product').value=p}
+function openTerms(){document.getElementById('formModal').style.display='none';document.getElementById('termsModal').style.display='flex'}
+function closeAll(){document.getElementById('formModal').style.display='none';document.getElementById('termsModal').style.display='none'}
+function submitForm(){
+ fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify({name:name.value,email:email.value,phone:phone.value,course:'HTML',product:product.value})})
+ .then(()=>{alert('Request has been submitted. You will soon receive the payment details in your mail. Please keep checking your email for them.');closeAll()});
+}
 </script>
 </body>
 </html>
