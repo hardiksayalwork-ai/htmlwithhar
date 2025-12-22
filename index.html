@@ -227,10 +227,20 @@ nextBtn.onclick=()=>{
   termsModal.style.display='flex';
 };
 submitBtn.onclick=()=>{
-  fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify({
-    name:name.value,email:email.value,phone:phone.value,
-    course:course.value,product:product.value
-  })}).then(()=>{
+  fetch(SCRIPT_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name: name.value.trim(),
+    email: email.value.trim(),
+    phone: phone.value.trim(),
+    course: course.value.trim(),
+    product: product.value.trim()
+  })
+})
+.then(()=>{
     alert("Request has been submitted. You will soon receive the payment details in your mail. Please keep checking your email for them.");
     closeAll();
   });
