@@ -353,6 +353,60 @@ document.getElementById("logo")?.addEventListener("click", () => {
 document.getElementById("goCourses")?.addEventListener("click", () => {
   document.getElementById("courses")?.scrollIntoView({ behavior: "smooth" });
 });
+  /* =========================
+   HTML CHAPTERS (RESTORED)
+========================= */
+
+const htmlChaptersData = [
+  ["Chapter 1 – HTML Basics", "Chapter1_Free_Preview.pdf"],
+  ["Chapter 2 – Tools & Environment", "Chapter2_Free_Preview.pdf"],
+  ["Chapter 3 – HTML Document Structure", "Chapter3_Free_Preview.pdf"],
+  ["Chapter 4 – Text & Headings", "Chapter4_Free_Preview.pdf"],
+  ["Chapter 5 – Links & Navigation", "Chapter5_Free_Preview.pdf"],
+  ["Chapter 6 – Images & Media", "Chapter6_Free_Preview.pdf"],
+  ["Chapter 7 – Lists", "Chapter7_Free_Preview.pdf"],
+  ["Chapter 8 – Tables", "Chapter8_Free_Preview.pdf"],
+  ["Chapter 9 – Forms", "Chapter9_Free_Preview.pdf"],
+  ["Chapter 10 – Semantic HTML", "Chapter10_Free_Preview.pdf"],
+  ["Chapter 11 – Best Practices", "Chapter11_Free_Preview.pdf"],
+  ["Chapter 12 – Publishing Websites", "Chapter12_Free_Preview.pdf"]
+];
+
+document.getElementById("showHTML")?.addEventListener("click", () => {
+  const container = document.getElementById("chapterCards");
+  container.innerHTML = "";
+
+  htmlChaptersData.forEach(ch => {
+    container.innerHTML += `
+      <div class="card">
+        <h4>${ch[0]}</h4>
+        <div class="price">
+          <del>₹20</del> <strong>₹15</strong>
+        </div>
+        <div class="actions">
+          <button onclick="openForm('${ch[0]}')">Request</button>
+          <button class="preview" onclick="window.open('${ch[1]}','_blank')">Preview</button>
+        </div>
+      </div>
+    `;
+  });
+
+  // FULL BOOK CARD
+  container.innerHTML += `
+    <div class="card">
+      <h4>Complete HTML Book (All 12 Chapters)</h4>
+      <div class="price">
+        <del>₹299</del> <strong>₹179</strong>
+      </div>
+      <div class="actions">
+        <button onclick="openForm('Full HTML Book')">Request</button>
+        <button class="preview" onclick="window.open('Chapter1_Free_Preview.pdf','_blank')">Preview</button>
+      </div>
+    </div>
+  `;
+
+  d
+
 </script>
 
  
