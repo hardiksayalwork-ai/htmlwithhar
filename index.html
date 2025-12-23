@@ -244,94 +244,118 @@ footer{
   <h4>About Improve Your Skills</h4>
   <p>Beginner-friendly, affordable learning resources.</p>
 </footer>
-
 <script>
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycbxijXOhCLk2KS_JhsVN_8-jcmkTfEANZmxlePQbmE4omHb3jF-8G1egXLYEZjYAmdzMtQ/exec";
+/* =========================
+   GLOBAL HELPERS
+========================= */
 
-/* NAVIGATION */
-document.querySelectorAll("nav button[data-go]").forEach(b=>{
-  b.onclick=()=>document.getElementById(b.dataset.go).scrollIntoView({behavior:"smooth"});
-});
-document.getElementById("logo").onclick=()=>home.scrollIntoView({behavior:"smooth"});
-document.getElementById("goCourses").onclick=()=>courses.scrollIntoView({behavior:"smooth"});
-document.getElementById("themeBtn").onclick=()=>document.body.classList.toggle("light");
-
-/* CHAPTER DATA */
-const chapters=[
-["Chapter 1 – HTML Basics","Chapter1_Free_Preview.pdf"],
-["Chapter 2 – Tools & Environment","Chapter2_Free_Preview.pdf"],
-["Chapter 3 – HTML Document Structure","Chapter3_Free_Preview.pdf"],
-["Chapter 4 – Text & Headings","Chapter4_Free_Preview.pdf"],
-["Chapter 5 – Links & Navigation","Chapter5_Free_Preview.pdf"],
-["Chapter 6 – Images & Media","Chapter6_Free_Preview.pdf"],
-["Chapter 7 – Lists","Chapter7_Free_Preview.pdf"],
-["Chapter 8 – Tables","Chapter8_Free_Preview.pdf"],
-["Chapter 9 – Forms","Chapter9_Free_Preview.pdf"],
-["Chapter 10 – Semantic HTML","Chapter10_Free_Preview.pdf"],
-["Chapter 11 – Best Practices","Chapter11_Free_Preview.pdf"],
-["Chapter 12 – Publishing Websites","Chapter12_Free_Preview.pdf"]
-];
-
-document.getElementById("showHTML").onclick=()=>{
-  const wrap=document.getElementById("chapterCards");
-  wrap.innerHTML="";
-  chapters.forEach(c=>{
-    wrap.innerHTML+=`
-    <div class="card">
-      <h4>${c[0]}</h4>
-      <div class="price"><del>₹20</del> <strong>₹15</strong></div>
-      <div class="actions">
-        <button onclick="openForm('${c[0]}')">Request</button>
-        <button class="preview" onclick="window.open('${c[1]}','_blank')">Preview</button>
-      </div>
-    </div>`;
-  });
-  wrap.innerHTML+=`
-  <div class="card">
-    <h4>Complete HTML Book</h4>
-    <div class="price"><del>₹299</del> <strong>₹179</strong></div>
-    <div class="actions">
-      <button onclick="openForm('Full HTML Book')">Request</button>
-      <button class="preview" onclick="window.open('Chapter1_Free_Preview.pdf','_blank')">Preview</button>
-    </div>
-  </div>`;
-  htmlChapters.style.display="block";
-  htmlChapters.scrollIntoView({behavior:"smooth"});
-};
-
-/* FORM FLOW */
-function openForm(p){
-  formModal.style.display="flex";
-  course.value="HTML";
-  product.value=p;
+function closeAll() {
+  const modals = document.querySelectorAll(".modal");
+  modals.forEach(m => m.style.display = "none");
 }
 
-document.getElementById("nextStep").onclick=()=>{
-  if(!fullName.value.trim()) return alert("Enter name");
-  if(!/^[^@]+@[^@]+\.[^@]+$/.test(email.value)) return alert("Invalid email");
-  if(!/^\d{10}$/.test(phone.value)) return alert("Invalid phone");
-  formModal.style.display="none";
-  termsModal.style.display="flex";
-};
+/* =========================
+   THEME TOGGLE
+========================= */
+document.getElementById("themeBtn")?.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+});
 
-document.getElementById("submitFinal").onclick=()=>{
-  fetch(SCRIPT_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      name:fullName.value.trim(),
-      email:email.value.trim(),
-      phone:phone.value.trim(),
-      course:course.value,
-      product:product.value
-    })
-  }).then(()=>{
-    alert("Request has been submitted. You will soon receive the payment details in your mail. Please keep checking your email for them.");
+/* =========================
+   FORM FLOW
+========================= */
+
+// STEP 1 → Open request form
+function openForm(productName) {
+  document.getElementById("formModal").style.display = "flex";
+  document.getElementById("course").value = "HTML";
+  document.getElementById("product").value = productName;
+}
+
+// STEP 2 → Validate & go to T&C
+document.getElementById("nextStep")?.addEventListener("click", () => {
+  const name = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+
+  if (!name) {
+    alert("Please enter your name");
+    return;
+  }
+
+  if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+    alert("Please enter a valid email");
+    return;
+  }
+
+  if (!/^\d{10}$/.test(phone)) {
+    alert("Please enter a valid 10-digit phone number");
+    return;
+  }
+
+  document.getElementById("formModal").style.display = "none";
+  document.getElementById("termsModal").style.display = "flex";
+});
+
+/* =========================
+   FINAL SUBMIT → SHEETDB
+========================= */
+
+document.getElementById("submitFinal")?.addEventListener("click", () => {
+
+  const payload = {
+    data: [{
+      timestamp: new Date().toLocaleString(),
+      name: document.getElementById("fullName").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      phone: document.getElementById("phone").value.trim(),
+      course: document.getElementById("course").value.trim(),
+      product: document.getElementById("product").value.trim(),
+      terms: "YES"
+    }]
+  };
+
+  fetch("https://sheetdb.io/api/v1/0vlqo32y2hdir", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(() => {
+    alert(
+      "Request has been submitted. You will soon receive the payment details in your mail. Please keep checking your email for them."
+    );
     closeAll();
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Submission failed. Please try again.");
   });
-};
 
-function closeAll(){
+});
+
+/* =========================
+   SMOOTH NAVIGATION
+========================= */
+
+document.querySelectorAll("nav button[data-go]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.getElementById(btn.dataset.go)?.scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+document.getElementById("logo")?.addEventListener("click", () => {
+  document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
+});
+
+document.getElementById("goCourses")?.addEventListener("click", () => {
+  document.getElementById("courses")?.scrollIntoView({ behavior: "smooth" });
+});
+</script>
+
+ closeAll(){
   formModal.style.display="none";
   termsModal.style.display="none";
 }
