@@ -6,80 +6,184 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* =========================
+   ROOT + RESET
+========================= */
 :root{
-  --bg:#f7f9fc;
-  --card:#ffffff;
-  --text:#0f172a;
+  --bg-light:#f7f9fc;
+  --bg-dark:#0b1020;
+  --card-light:#ffffff;
+  --card-dark:#151a2e;
+  --text-light:#0f172a;
+  --text-dark:#e5e7eb;
   --accent:#2563eb;
 }
-body{
+
+*{
   margin:0;
-  font-family:system-ui;
-  background:var(--bg);
-  color:var(--text);
+  padding:0;
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
 }
+
+body{
+  background:var(--bg-light);
+  color:var(--text-light);
+  transition:.3s;
+  line-height:1.6;
+}
+
+body.dark{
+  background:var(--bg-dark);
+  color:var(--text-dark);
+}
+
+/* =========================
+   HEADER / NAVBAR
+========================= */
 header{
   position:fixed;
-  top:0;left:0;right:0;
-  background:white;
-  padding:12px 20px;
+  top:0;
+  left:0;
+  right:0;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(12px);
   display:flex;
   justify-content:space-between;
   align-items:center;
-  box-shadow:0 5px 15px rgba(0,0,0,.08);
+  padding:14px 22px;
+  z-index:1000;
 }
-nav button{
-  margin-left:8px;
-  padding:6px 14px;
-  border:none;
-  border-radius:20px;
-  background:none;
+
+body.dark header{
+  background:rgba(11,16,32,.9);
+}
+
+#logo{
+  font-weight:700;
+  color:var(--accent);
   cursor:pointer;
 }
-.hero{
-  padding:120px 20px 60px;
-  text-align:center;
-}
-.hero button{
-  padding:12px 30px;
+
+nav button{
+  margin-left:10px;
+  padding:8px 16px;
   border:none;
-  border-radius:30px;
+  border-radius:999px;
+  background:transparent;
+  cursor:pointer;
+  font-weight:500;
+}
+
+nav button:hover{
+  background:var(--accent);
+  color:white;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero{
+  min-height:100vh;
+  padding:120px 20px 40px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.hero h1{
+  font-size:clamp(2rem,5vw,3rem);
+  margin-bottom:12px;
+}
+
+.hero p{
+  max-width:700px;
+  opacity:.8;
+}
+
+.hero button{
+  margin-top:30px;
+  padding:14px 36px;
+  border:none;
+  border-radius:999px;
   background:var(--accent);
   color:white;
   cursor:pointer;
+  font-size:1rem;
 }
+
+/* =========================
+   SECTIONS
+========================= */
 section{
-  max-width:1100px;
+  max-width:1200px;
   margin:auto;
-  padding:60px 20px;
+  padding:80px 20px;
 }
+
+section h2{
+  text-align:center;
+  margin-bottom:50px;
+  font-size:clamp(1.6rem,4vw,2.4rem);
+}
+
+/* =========================
+   CARDS
+========================= */
 .cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
 }
+
 .card{
-  background:var(--card);
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 10px 25px rgba(0,0,0,.07);
+  background:var(--card-light);
+  padding:24px;
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.08);
 }
-.card h3{color:var(--accent)}
+
+body.dark .card{
+  background:var(--card-dark);
+}
+
+.card h3{
+  color:var(--accent);
+  margin-bottom:8px;
+}
+
+.price{
+  margin:12px 0;
+}
+
+.price del{
+  opacity:.6;
+}
+
 .actions{
   display:flex;
   gap:10px;
 }
+
 .actions button{
   flex:1;
-  padding:8px;
+  padding:10px;
   border:none;
-  border-radius:20px;
+  border-radius:999px;
+  cursor:pointer;
   background:var(--accent);
   color:white;
-  cursor:pointer;
 }
-.preview{background:#64748b}
 
+.actions .preview{
+  background:#64748b;
+}
+
+/* =========================
+   MODALS
+========================= */
 .modal{
   position:fixed;
   inset:0;
@@ -87,23 +191,73 @@ section{
   display:none;
   justify-content:center;
   align-items:center;
+  z-index:2000;
 }
+
 .modal-box{
-  background:white;
-  padding:22px;
-  border-radius:16px;
-  width:90%;
-  max-width:450px;
+  background:var(--card-light);
+  padding:26px;
+  border-radius:18px;
+  max-width:500px;
+  width:92%;
+  max-height:90vh;
+  overflow:auto;
 }
+
+body.dark .modal-box{
+  background:var(--card-dark);
+}
+
+.modal-box h3{
+  margin-bottom:14px;
+  color:var(--accent);
+}
+
 .modal-box input{
   width:100%;
-  padding:10px;
+  padding:12px;
   margin-bottom:10px;
+  border-radius:10px;
+  border:1px solid #cbd5e1;
 }
+
 .modal-box button{
   width:100%;
-  padding:10px;
+  padding:12px;
+  border:none;
+  border-radius:999px;
+  background:var(--accent);
+  color:white;
+  cursor:pointer;
   margin-top:10px;
+}
+
+.cancel{
+  background:#64748b;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer{
+  padding:60px 20px;
+  text-align:center;
+  opacity:.7;
+}
+
+/* =========================
+   MOBILE FIXES
+========================= */
+@media(max-width:600px){
+  nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  nav button{
+    padding:6px 12px;
+    font-size:.85rem;
+  }
 }
 </style>
 </head>
@@ -111,18 +265,19 @@ section{
 <body>
 
 <header>
-  <b>Improve Your Skills</b>
+  <div id="logo">Improve Your Skills</div>
   <nav>
-    <button onclick="scrollToId('home')">Home</button>
-    <button onclick="scrollToId('courses')">Courses</button>
-    <button onclick="scrollToId('about')">About</button>
+    <button data-go="home">Home</button>
+    <button data-go="courses">Courses</button>
+    <button data-go="about">About</button>
+    <button id="themeBtn">Theme</button>
   </nav>
 </header>
 
 <div class="hero" id="home">
   <h1>Improve Your Skills</h1>
-  <p>Affordable learning, step by step</p>
-  <button onclick="scrollToId('courses')">Explore Courses</button>
+  <p>Beginner-friendly, affordable courses designed to help you grow step by step.</p>
+  <button id="goCourses">Explore Courses</button>
 </div>
 
 <section id="courses">
@@ -130,8 +285,11 @@ section{
 <div class="cards">
   <div class="card">
     <h3>HTML</h3>
+    <p>Web development foundations</p>
     <button id="showHTML">Explore Chapters</button>
   </div>
+  <div class="card"><h3>CSS</h3><p>Coming soon</p></div>
+  <div class="card"><h3>Python</h3><p>Coming soon</p></div>
 </div>
 </section>
 
@@ -146,103 +304,184 @@ section{
     <h3>Request Course</h3>
     <input id="fullName" placeholder="Your Name">
     <input id="email" placeholder="Email">
-    <input id="phone" placeholder="Phone">
+    <input id="phone" placeholder="Phone (10 digits)">
     <input id="course" readonly>
     <input id="product" readonly>
     <button id="nextStep">Next</button>
-    <button onclick="closeAll()">Cancel</button>
+    <button class="cancel" onclick="closeAll()">Cancel</button>
   </div>
 </div>
 
 <div class="modal" id="termsModal">
   <div class="modal-box">
     <h3>Terms & Conditions</h3>
-    <p>Personal use only. No redistribution.</p>
+    <p style="font-size:.9rem">
+      • Educational digital product<br>
+      • Personal use only<br>
+      • No redistribution<br>
+      • AI-assisted content<br>
+      • Manual delivery after payment
+    </p>
     <button id="submitFinal">I Agree & Submit</button>
+    <button class="cancel" onclick="closeAll()">Cancel</button>
   </div>
 </div>
 
 <footer id="about">
-  <p style="text-align:center;opacity:.6">© Improve Your Skills</p>
+  <h3>About Improve Your Skills</h3>
+  <p>Affordable learning resources for students and beginners.</p>
 </footer>
 
 <script>
-const SHEET_URL = "https://sheetdb.io/api/v1/0vlqo32y2hdir";
+/* =========================
+   ELEMENT REFERENCES
+========================= */
+const logoEl = document.getElementById("logo");
+const homeEl = document.getElementById("home");
+const coursesEl = document.getElementById("courses");
+const aboutEl = document.getElementById("about");
+const themeBtnEl = document.getElementById("themeBtn");
+const goCoursesEl = document.getElementById("goCourses");
+const showHTMLEl = document.getElementById("showHTML");
+const htmlChaptersEl = document.getElementById("htmlChapters");
+const chapterCardsEl = document.getElementById("chapterCards");
 
-/* helpers */
-function scrollToId(id){
-  document.getElementById(id).scrollIntoView({behavior:"smooth"});
-}
-function closeAll(){
-  document.getElementById("formModal").style.display="none";
-  document.getElementById("termsModal").style.display="none";
-}
+const formModalEl = document.getElementById("formModal");
+const termsModalEl = document.getElementById("termsModal");
 
-/* chapters */
-const chapters=[
-["Chapter 1 – HTML Basics","Chapter1_Free_Preview.pdf"],
-["Chapter 2 – Tools & Environment","Chapter2_Free_Preview.pdf"],
-["Chapter 3 – HTML Structure","Chapter3_Free_Preview.pdf"],
-["Chapter 4 – Text","Chapter4_Free_Preview.pdf"],
-["Chapter 5 – Links","Chapter5_Free_Preview.pdf"],
-["Chapter 6 – Images","Chapter6_Free_Preview.pdf"],
-["Chapter 7 – Lists","Chapter7_Free_Preview.pdf"],
-["Chapter 8 – Tables","Chapter8_Free_Preview.pdf"],
-["Chapter 9 – Forms","Chapter9_Free_Preview.pdf"],
-["Chapter 10 – Semantic","Chapter10_Free_Preview.pdf"],
-["Chapter 11 – Best Practices","Chapter11_Free_Preview.pdf"],
-["Chapter 12 – Publishing","Chapter12_Free_Preview.pdf"]
-];
+const fullNameEl = document.getElementById("fullName");
+const emailEl = document.getElementById("email");
+const phoneEl = document.getElementById("phone");
+const courseEl = document.getElementById("course");
+const productEl = document.getElementById("product");
 
-document.getElementById("showHTML").addEventListener("click",()=>{
-  const box=document.getElementById("chapterCards");
-  box.innerHTML="";
-  chapters.forEach(c=>{
-    box.innerHTML+=`
-    <div class="card">
-      <h3>${c[0]}</h3>
-      <div class="actions">
-        <button onclick="openForm('${c[0]}')">Request</button>
-        <button class="preview" onclick="window.open('${c[1]}')">Preview</button>
-      </div>
-    </div>`;
+const nextStepEl = document.getElementById("nextStep");
+const submitFinalEl = document.getElementById("submitFinal");
+
+/* =========================
+   NAVIGATION
+========================= */
+document.querySelectorAll("nav button[data-go]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.getElementById(btn.dataset.go)
+      .scrollIntoView({ behavior: "smooth" });
   });
-  document.getElementById("htmlChapters").style.display="block";
 });
 
-/* form */
-function openForm(product){
-  document.getElementById("formModal").style.display="flex";
-  document.getElementById("course").value="HTML";
-  document.getElementById("product").value=product;
+logoEl.addEventListener("click", () => {
+  homeEl.scrollIntoView({ behavior: "smooth" });
+});
+
+goCoursesEl.addEventListener("click", () => {
+  coursesEl.scrollIntoView({ behavior: "smooth" });
+});
+
+themeBtnEl.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+});
+
+/* =========================
+   HTML CHAPTERS
+========================= */
+const chapters = [
+  ["Chapter 1 – HTML Basics","Chapter1_Free_Preview.pdf"],
+  ["Chapter 2 – Tools & Environment","Chapter2_Free_Preview.pdf"],
+  ["Chapter 3 – HTML Document Structure","Chapter3_Free_Preview.pdf"],
+  ["Chapter 4 – Text & Headings","Chapter4_Free_Preview.pdf"],
+  ["Chapter 5 – Links & Navigation","Chapter5_Free_Preview.pdf"],
+  ["Chapter 6 – Images & Media","Chapter6_Free_Preview.pdf"],
+  ["Chapter 7 – Lists","Chapter7_Free_Preview.pdf"],
+  ["Chapter 8 – Tables","Chapter8_Free_Preview.pdf"],
+  ["Chapter 9 – Forms","Chapter9_Free_Preview.pdf"],
+  ["Chapter 10 – Semantic HTML","Chapter10_Free_Preview.pdf"],
+  ["Chapter 11 – Best Practices","Chapter11_Free_Preview.pdf"],
+  ["Chapter 12 – Publishing Websites","Chapter12_Free_Preview.pdf"]
+];
+
+showHTMLEl.addEventListener("click", () => {
+  chapterCardsEl.innerHTML = "";
+
+  chapters.forEach(ch => {
+    chapterCardsEl.innerHTML += `
+      <div class="card">
+        <h3>${ch[0]}</h3>
+        <div class="price"><del>₹20</del> <strong>₹15</strong></div>
+        <div class="actions">
+          <button onclick="openForm('${ch[0]}')">Request</button>
+          <button class="preview" onclick="window.open('${ch[1]}','_blank')">Preview</button>
+        </div>
+      </div>
+    `;
+  });
+
+  chapterCardsEl.innerHTML += `
+    <div class="card">
+      <h3>Complete HTML Book</h3>
+      <div class="price"><del>₹299</del> <strong>₹179</strong></div>
+      <div class="actions">
+        <button onclick="openForm('Full HTML Book')">Request</button>
+        <button class="preview" onclick="window.open('Chapter1_Free_Preview.pdf','_blank')">Preview</button>
+      </div>
+    </div>
+  `;
+
+  htmlChaptersEl.style.display = "block";
+  htmlChaptersEl.scrollIntoView({ behavior: "smooth" });
+});
+
+/* =========================
+   FORM FLOW
+========================= */
+function openForm(productName){
+  formModalEl.style.display = "flex";
+  courseEl.value = "HTML";
+  productEl.value = productName;
 }
 
-document.getElementById("nextStep").onclick=()=>{
-  document.getElementById("formModal").style.display="none";
-  document.getElementById("termsModal").style.display="flex";
-};
+nextStepEl.addEventListener("click", () => {
+  if (!fullNameEl.value.trim()) return alert("Enter name");
+  if (!/^[^@]+@[^@]+\.[^@]+$/.test(emailEl.value)) return alert("Invalid email");
+  if (!/^\d{10}$/.test(phoneEl.value)) return alert("Invalid phone");
 
-document.getElementById("submitFinal").onclick=()=>{
-  fetch(SHEET_URL,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      data:[{
-        timestamp:new Date().toLocaleString(),
-        name:document.getElementById("fullName").value,
-        email:document.getElementById("email").value,
-        phone:document.getElementById("phone").value,
-        course:document.getElementById("course").value,
-        product:document.getElementById("product").value,
-        terms:"YES"
+  formModalEl.style.display = "none";
+  termsModalEl.style.display = "flex";
+});
+
+submitFinalEl.addEventListener("click", () => {
+  fetch("https://sheetdb.io/api/v1/0vlqo32y2hdir", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      data: [{
+        timestamp: new Date().toLocaleString(),
+        name: fullNameEl.value.trim(),
+        email: emailEl.value.trim(),
+        phone: phoneEl.value.trim(),
+        course: courseEl.value.trim(),
+        product: productEl.value.trim(),
+        terms: "YES"
       }]
     })
-  }).then(()=>{
-    alert("Request submitted successfully");
+  })
+  .then(res => res.json())
+  .then(() => {
+    alert(
+      "Request has been submitted. You will soon receive payment details by email."
+    );
     closeAll();
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Submission failed");
   });
-};
+});
+
+function closeAll(){
+  formModalEl.style.display = "none";
+  termsModalEl.style.display = "none";
+}
 </script>
+
 
 </body>
 </html>
