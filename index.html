@@ -355,37 +355,7 @@ document.getElementById("goCourses")?.addEventListener("click", () => {
 });
 </script>
 
- closeAll(){
-  formModal.style.display="none";
-  termsModal.style.display="none";
-}
-  // FORCE SUBMIT BUTTON CLICK
-document.addEventListener("click", function (e) {
-  if (e.target && e.target.id === "submitFinal") {
-    e.preventDefault();
-
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: document.getElementById("fullName").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        phone: document.getElementById("phone").value.trim(),
-        course: document.getElementById("course").value.trim(),
-        product: document.getElementById("product").value.trim()
-      })
-    })
-    .then(() => {
-      alert(
-        "Request has been submitted. You will soon receive the payment details in your mail. Please keep checking your email for them."
-      );
-      closeAll();
-    })
-    .catch(() => alert("Submission failed. Try again."));
-  }
-});
-
-</script>
+ 
 
 </body>
 </html>
