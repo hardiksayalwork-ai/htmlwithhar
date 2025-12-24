@@ -244,36 +244,44 @@ function go(id){
 }
 
 const chapters = [
-  "Chapter 1 – HTML Basics",
-  "Chapter 2 – Tools & Environment",
-  "Chapter 3 – HTML Document Structure",
-  "Chapter 4 – Text & Headings",
-  "Chapter 5 – Links & Navigation",
-  "Chapter 6 – Images & Media",
-  "Chapter 7 – Lists",
-  "Chapter 8 – Tables",
-  "Chapter 9 – Forms",
-  "Chapter 10 – Semantic HTML",
-  "Chapter 11 – Best Practices",
-  "Chapter 12 – Publishing Websites",
-  "Complete HTML Book (All Chapters)"
+  { title: "Chapter 1 – HTML Basics", file: "Chapter1_Free_Preview.pdf" },
+  { title: "Chapter 2 – Tools & Environment", file: "Chapter2_Free_Preview.pdf" },
+  { title: "Chapter 3 – HTML Document Structure", file: "Chapter3_Free_Preview.pdf" },
+  { title: "Chapter 4 – Text & Headings", file: "Chapter4_Free_Preview.pdf" },
+  { title: "Chapter 5 – Links & Navigation", file: "Chapter5_Free_Preview.pdf" },
+  { title: "Chapter 6 – Images & Media", file: "Chapter6_Free_Preview.pdf" },
+  { title: "Chapter 7 – Lists", file: "Chapter7_Free_Preview.pdf" },
+  { title: "Chapter 8 – Tables", file: "Chapter8_Free_Preview.pdf" },
+  { title: "Chapter 9 – Forms", file: "Chapter9_Free_Preview.pdf" },
+  { title: "Chapter 10 – Semantic HTML", file: "Chapter10_Free_Preview.pdf" },
+  { title: "Chapter 11 – Best Practices", file: "Chapter11_Free_Preview.pdf" },
+  { title: "Chapter 12 – Publishing Websites", file: "Chapter12_Free_Preview.pdf" },
+  { title: "Complete HTML Book (All Chapters)", file: "Fullbook_Free_Preview.pdf" }
 ];
 
 
 function showChapters(){
-  const box=document.getElementById("chapterCards");
-  box.innerHTML="";
-  chapters.forEach(c=>{
-    box.innerHTML+=`
+  const box = document.getElementById("chapterCards");
+  box.innerHTML = "";
+
+  chapters.forEach(ch => {
+    box.innerHTML += `
       <div class="card">
-        <h3>${c}</h3>
+        <h3>${ch.title}</h3>
         <div class="actions">
           <button onclick="openRequest()">Request</button>
-          <button class="preview">Preview</button>
+          <button class="preview" onclick="window.open('${ch.file}','_blank')">
+            Preview
+          </button>
         </div>
       </div>
     `;
   });
+
+  document.getElementById("chapters").style.display = "block";
+  go("chapters");
+}
+
   document.getElementById("chapters").style.display="block";
   go("chapters");
 }
