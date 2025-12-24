@@ -292,6 +292,17 @@ function openRequest(){
 function closeModal(){
   document.getElementById("requestModal").style.display="none";
 }
+  // SAFELY BIND EXPLORE CHAPTERS BUTTON
+document.addEventListener("DOMContentLoaded", () => {
+  const exploreBtn = document.querySelector(
+    "button[onclick*='showChapters'], button#exploreChapters"
+  );
+
+  if (exploreBtn) {
+    exploreBtn.onclick = showChapters;
+  }
+});
+
 </script>
 
 </body>
