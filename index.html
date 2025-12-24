@@ -7,76 +7,68 @@
 
 <style>
 /* =========================
-   ROOT + RESET
+   ROOT
 ========================= */
 :root{
-  --bg-light:#f7f9fc;
-  --bg-dark:#0b1020;
-  --card-light:#ffffff;
-  --card-dark:#151a2e;
-  --text-light:#0f172a;
-  --text-dark:#e5e7eb;
-  --accent:#2563eb;
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#475569;
+  --accent1:#6366f1;
+  --accent2:#22d3ee;
 }
 
 *{
+  box-sizing:border-box;
   margin:0;
   padding:0;
-  box-sizing:border-box;
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
 }
 
 body{
-  background:var(--bg-light);
-  color:var(--text-light);
-  transition:.3s;
+  background:var(--bg);
+  color:var(--text);
   line-height:1.6;
 }
 
-body.dark{
-  background:var(--bg-dark);
-  color:var(--text-dark);
-}
-
 /* =========================
-   HEADER / NAVBAR
+   NAVBAR
 ========================= */
 header{
   position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  background:rgba(255,255,255,.9);
+  top:0;left:0;right:0;
+  background:rgba(255,255,255,.85);
   backdrop-filter:blur(12px);
+  padding:14px 24px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:14px 22px;
   z-index:1000;
 }
 
-body.dark header{
-  background:rgba(11,16,32,.9);
-}
-
-#logo{
-  font-weight:700;
-  color:var(--accent);
+.logo{
+  font-weight:800;
+  font-size:1.2rem;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
   cursor:pointer;
 }
 
 nav button{
   margin-left:10px;
-  padding:8px 16px;
+  padding:8px 18px;
   border:none;
   border-radius:999px;
-  background:transparent;
   cursor:pointer;
+  background:transparent;
   font-weight:500;
+  color:var(--text);
+  transition:.3s;
 }
 
 nav button:hover{
-  background:var(--accent);
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
   color:white;
 }
 
@@ -85,7 +77,7 @@ nav button:hover{
 ========================= */
 .hero{
   min-height:100vh;
-  padding:120px 20px 40px;
+  padding:140px 20px 60px;
   text-align:center;
   display:flex;
   flex-direction:column;
@@ -94,24 +86,36 @@ nav button:hover{
 }
 
 .hero h1{
-  font-size:clamp(2rem,5vw,3rem);
-  margin-bottom:12px;
+  font-size:clamp(2.2rem,5vw,3.2rem);
+  font-weight:900;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:14px;
 }
 
 .hero p{
-  max-width:700px;
-  opacity:.8;
+  max-width:720px;
+  color:var(--muted);
+  font-size:1.05rem;
 }
 
 .hero button{
-  margin-top:30px;
-  padding:14px 36px;
+  margin-top:34px;
+  padding:14px 42px;
+  font-size:1rem;
   border:none;
   border-radius:999px;
-  background:var(--accent);
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
   color:white;
   cursor:pointer;
-  font-size:1rem;
+  box-shadow:0 10px 30px rgba(99,102,241,.35);
+  transition:.3s;
+}
+
+.hero button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 40px rgba(34,211,238,.45);
 }
 
 /* =========================
@@ -120,133 +124,86 @@ nav button:hover{
 section{
   max-width:1200px;
   margin:auto;
-  padding:80px 20px;
+  padding:90px 20px;
 }
 
 section h2{
   text-align:center;
+  font-size:clamp(1.8rem,4vw,2.5rem);
   margin-bottom:50px;
-  font-size:clamp(1.6rem,4vw,2.4rem);
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 /* =========================
-   CARDS
+   COURSE CARDS
 ========================= */
 .cards{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:24px;
+  gap:26px;
 }
 
 .card{
-  background:var(--card-light);
-  padding:24px;
-  border-radius:18px;
+  background:var(--card);
+  padding:26px;
+  border-radius:22px;
   box-shadow:0 20px 40px rgba(0,0,0,.08);
-}
-
-body.dark .card{
-  background:var(--card-dark);
+  text-align:center;
 }
 
 .card h3{
-  color:var(--accent);
-  margin-bottom:8px;
+  margin-bottom:10px;
+  font-size:1.3rem;
 }
 
-.price{
-  margin:12px 0;
+.card p{
+  color:var(--muted);
 }
 
-.price del{
-  opacity:.6;
-}
-
-.actions{
-  display:flex;
-  gap:10px;
-}
-
-.actions button{
-  flex:1;
-  padding:10px;
+.card button{
+  margin-top:18px;
+  padding:12px 30px;
   border:none;
   border-radius:999px;
-  cursor:pointer;
-  background:var(--accent);
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
   color:white;
+  cursor:pointer;
+  transition:.3s;
 }
 
-.actions .preview{
-  background:#64748b;
+.card button:hover{
+  transform:scale(1.05);
 }
 
 /* =========================
-   MODALS
+   FORM SECTION
 ========================= */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:2000;
+.form-section{
+  max-width:900px;
+  margin:auto;
 }
 
-.modal-box{
-  background:var(--card-light);
-  padding:26px;
-  border-radius:18px;
-  max-width:500px;
-  width:92%;
-  max-height:90vh;
-  overflow:auto;
-}
-
-body.dark .modal-box{
-  background:var(--card-dark);
-}
-
-.modal-box h3{
-  margin-bottom:14px;
-  color:var(--accent);
-}
-
-.modal-box input{
+iframe{
   width:100%;
-  padding:12px;
-  margin-bottom:10px;
-  border-radius:10px;
-  border:1px solid #cbd5e1;
-}
-
-.modal-box button{
-  width:100%;
-  padding:12px;
+  height:850px;
   border:none;
-  border-radius:999px;
-  background:var(--accent);
-  color:white;
-  cursor:pointer;
-  margin-top:10px;
-}
-
-.cancel{
-  background:#64748b;
+  border-radius:18px;
+  box-shadow:0 25px 60px rgba(0,0,0,.12);
 }
 
 /* =========================
    FOOTER
 ========================= */
 footer{
-  padding:60px 20px;
+  padding:70px 20px;
   text-align:center;
-  opacity:.7;
+  color:var(--muted);
 }
 
 /* =========================
-   MOBILE FIXES
+   MOBILE FIX
 ========================= */
 @media(max-width:600px){
   nav{
@@ -265,223 +222,64 @@ footer{
 <body>
 
 <header>
-  <div id="logo">Improve Your Skills</div>
+  <div class="logo" onclick="scrollToId('home')">Improve Your Skills</div>
   <nav>
-    <button data-go="home">Home</button>
-    <button data-go="courses">Courses</button>
-    <button data-go="about">About</button>
-    <button id="themeBtn">Theme</button>
+    <button onclick="scrollToId('home')">Home</button>
+    <button onclick="scrollToId('courses')">Courses</button>
+    <button onclick="scrollToId('request')">Request</button>
+    <button onclick="scrollToId('about')">About</button>
   </nav>
 </header>
 
 <div class="hero" id="home">
   <h1>Improve Your Skills</h1>
-  <p>Beginner-friendly, affordable courses designed to help you grow step by step.</p>
-  <button id="goCourses">Explore Courses</button>
+  <p>
+    Learn HTML and more with beginner-friendly chapters and affordable full books.
+    Simple, trusted, and designed for students.
+  </p>
+  <button onclick="scrollToId('courses')">Explore Courses</button>
 </div>
 
 <section id="courses">
-<h2>Courses</h2>
-<div class="cards">
-  <div class="card">
-    <h3>HTML</h3>
-    <p>Web development foundations</p>
-    <button id="showHTML">Explore Chapters</button>
+  <h2>Courses</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>HTML</h3>
+      <p>12 detailed chapters + full book</p>
+      <button onclick="scrollToId('request')">Request Chapters</button>
+    </div>
+    <div class="card">
+      <h3>CSS</h3>
+      <p>Coming Soon</p>
+    </div>
+    <div class="card">
+      <h3>Python</h3>
+      <p>Coming Soon</p>
+    </div>
   </div>
-  <div class="card"><h3>CSS</h3><p>Coming soon</p></div>
-  <div class="card"><h3>Python</h3><p>Coming soon</p></div>
-</div>
 </section>
 
-<section id="htmlChapters" style="display:none">
-<h2>HTML Chapters</h2>
-<div class="cards" id="chapterCards"></div>
+<section id="request">
+  <h2>Request Chapters / Books</h2>
+  <div class="form-section">
+    <iframe src="https://forms.gle/m6TanF7cYLXQDvfG8"></iframe>
+  </div>
 </section>
-
-<!-- FORM -->
-<div class="modal" id="formModal">
-  <div class="modal-box">
-    <h3>Request Course</h3>
-    <input id="fullName" placeholder="Your Name">
-    <input id="email" placeholder="Email">
-    <input id="phone" placeholder="Phone (10 digits)">
-    <input id="course" readonly>
-    <input id="product" readonly>
-    <button id="nextStep">Next</button>
-    <button class="cancel" onclick="closeAll()">Cancel</button>
-  </div>
-</div>
-
-<div class="modal" id="termsModal">
-  <div class="modal-box">
-    <h3>Terms & Conditions</h3>
-    <p style="font-size:.9rem">
-      • Educational digital product<br>
-      • Personal use only<br>
-      • No redistribution<br>
-      • AI-assisted content<br>
-      • Manual delivery after payment
-    </p>
-    <button id="submitFinal">I Agree & Submit</button>
-    <button class="cancel" onclick="closeAll()">Cancel</button>
-  </div>
-</div>
 
 <footer id="about">
   <h3>About Improve Your Skills</h3>
-  <p>Affordable learning resources for students and beginners.</p>
+  <p>
+    Improve Your Skills provides affordable digital learning resources
+    designed for students and beginners. Simple pricing, honest teaching,
+    and practical knowledge.
+  </p>
 </footer>
 
 <script>
-/* =========================
-   ELEMENT REFERENCES
-========================= */
-const logoEl = document.getElementById("logo");
-const homeEl = document.getElementById("home");
-const coursesEl = document.getElementById("courses");
-const aboutEl = document.getElementById("about");
-const themeBtnEl = document.getElementById("themeBtn");
-const goCoursesEl = document.getElementById("goCourses");
-const showHTMLEl = document.getElementById("showHTML");
-const htmlChaptersEl = document.getElementById("htmlChapters");
-const chapterCardsEl = document.getElementById("chapterCards");
-
-const formModalEl = document.getElementById("formModal");
-const termsModalEl = document.getElementById("termsModal");
-
-const fullNameEl = document.getElementById("fullName");
-const emailEl = document.getElementById("email");
-const phoneEl = document.getElementById("phone");
-const courseEl = document.getElementById("course");
-const productEl = document.getElementById("product");
-
-const nextStepEl = document.getElementById("nextStep");
-const submitFinalEl = document.getElementById("submitFinal");
-
-/* =========================
-   NAVIGATION
-========================= */
-document.querySelectorAll("nav button[data-go]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.getElementById(btn.dataset.go)
-      .scrollIntoView({ behavior: "smooth" });
-  });
-});
-
-logoEl.addEventListener("click", () => {
-  homeEl.scrollIntoView({ behavior: "smooth" });
-});
-
-goCoursesEl.addEventListener("click", () => {
-  coursesEl.scrollIntoView({ behavior: "smooth" });
-});
-
-themeBtnEl.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-});
-
-/* =========================
-   HTML CHAPTERS
-========================= */
-const chapters = [
-  ["Chapter 1 – HTML Basics","Chapter1_Free_Preview.pdf"],
-  ["Chapter 2 – Tools & Environment","Chapter2_Free_Preview.pdf"],
-  ["Chapter 3 – HTML Document Structure","Chapter3_Free_Preview.pdf"],
-  ["Chapter 4 – Text & Headings","Chapter4_Free_Preview.pdf"],
-  ["Chapter 5 – Links & Navigation","Chapter5_Free_Preview.pdf"],
-  ["Chapter 6 – Images & Media","Chapter6_Free_Preview.pdf"],
-  ["Chapter 7 – Lists","Chapter7_Free_Preview.pdf"],
-  ["Chapter 8 – Tables","Chapter8_Free_Preview.pdf"],
-  ["Chapter 9 – Forms","Chapter9_Free_Preview.pdf"],
-  ["Chapter 10 – Semantic HTML","Chapter10_Free_Preview.pdf"],
-  ["Chapter 11 – Best Practices","Chapter11_Free_Preview.pdf"],
-  ["Chapter 12 – Publishing Websites","Chapter12_Free_Preview.pdf"]
-];
-
-showHTMLEl.addEventListener("click", () => {
-  chapterCardsEl.innerHTML = "";
-
-  chapters.forEach(ch => {
-    chapterCardsEl.innerHTML += `
-      <div class="card">
-        <h3>${ch[0]}</h3>
-        <div class="price"><del>₹20</del> <strong>₹15</strong></div>
-        <div class="actions">
-          <button onclick="openForm('${ch[0]}')">Request</button>
-          <button class="preview" onclick="window.open('${ch[1]}','_blank')">Preview</button>
-        </div>
-      </div>
-    `;
-  });
-
-  chapterCardsEl.innerHTML += `
-    <div class="card">
-      <h3>Complete HTML Book</h3>
-      <div class="price"><del>₹299</del> <strong>₹179</strong></div>
-      <div class="actions">
-        <button onclick="openForm('Full HTML Book')">Request</button>
-        <button class="preview" onclick="window.open('Chapter1_Free_Preview.pdf','_blank')">Preview</button>
-      </div>
-    </div>
-  `;
-
-  htmlChaptersEl.style.display = "block";
-  htmlChaptersEl.scrollIntoView({ behavior: "smooth" });
-});
-
-/* =========================
-   FORM FLOW
-========================= */
-function openForm(productName){
-  formModalEl.style.display = "flex";
-  courseEl.value = "HTML";
-  productEl.value = productName;
-}
-
-nextStepEl.addEventListener("click", () => {
-  if (!fullNameEl.value.trim()) return alert("Enter name");
-  if (!/^[^@]+@[^@]+\.[^@]+$/.test(emailEl.value)) return alert("Invalid email");
-  if (!/^\d{10}$/.test(phoneEl.value)) return alert("Invalid phone");
-
-  formModalEl.style.display = "none";
-  termsModalEl.style.display = "flex";
-});
-
-submitFinalEl.addEventListener("click", () => {
-  fetch("https://sheetdb.io/api/v1/0vlqo32y2hdir", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      data: [{
-        timestamp: new Date().toLocaleString(),
-        name: fullNameEl.value.trim(),
-        email: emailEl.value.trim(),
-        phone: phoneEl.value.trim(),
-        course: courseEl.value.trim(),
-        product: productEl.value.trim(),
-        terms: "YES"
-      }]
-    })
-  })
-  .then(res => res.json())
-  .then(() => {
-    alert(
-      "Request has been submitted. You will soon receive payment details by email."
-    );
-    closeAll();
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Submission failed");
-  });
-});
-
-function closeAll(){
-  formModalEl.style.display = "none";
-  termsModalEl.style.display = "none";
+function scrollToId(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 </script>
-
 
 </body>
 </html>
