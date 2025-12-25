@@ -166,6 +166,33 @@ section h2{
   cursor:pointer;
 }
 
+/* PRICE STYLES (ONLY ADDITION) */
+.price-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+
+.old-price{
+  text-decoration:line-through;
+  color:#94a3b8;
+}
+
+.new-price{
+  font-weight:700;
+  font-size:1.2rem;
+}
+
+.off-badge{
+  margin-left:auto;
+  background:#16a34a;
+  color:#fff;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:0.75rem;
+}
+
 /* CHAPTER ACTIONS */
 .actions{
   display:flex;
@@ -271,7 +298,6 @@ footer{
 <div class="cards" id="chapterCards"></div>
 </section>
 
-<!-- REQUEST MODAL -->
 <div class="modal" id="requestModal">
   <div class="modal-box">
     <div class="close">
@@ -286,7 +312,6 @@ footer{
 </footer>
 
 <script>
-/* NAVIGATION */
 const go = id => document.getElementById(id).scrollIntoView({behavior:"smooth"});
 
 document.getElementById("logo").onclick = () => go("home");
@@ -298,36 +323,56 @@ document.querySelectorAll("nav button[data-go]").forEach(btn=>{
 
 /* CHAPTER DATA */
 const chapters = [
-  ["Chapter 1 – HTML Basics","Chapter1_Free_Preview.pdf"],
-  ["Chapter 2 – Tools & Environment","Chapter2_Free_Preview.pdf"],
-  ["Chapter 3 – HTML Document Structure","Chapter3_Free_Preview.pdf"],
-  ["Chapter 4 – Text & Headings","Chapter4_Free_Preview.pdf"],
-  ["Chapter 5 – Links & Navigation","Chapter5_Free_Preview.pdf"],
-  ["Chapter 6 – Images & Media","Chapter6_Free_Preview.pdf"],
-  ["Chapter 7 – Lists","Chapter7_Free_Preview.pdf"],
-  ["Chapter 8 – Tables","Chapter8_Free_Preview.pdf"],
-  ["Chapter 9 – Forms","Chapter9_Free_Preview.pdf"],
-  ["Chapter 10 – Semantic HTML","Chapter10_Free_Preview.pdf"],
-  ["Chapter 11 – Best Practices","Chapter11_Free_Preview.pdf"],
-  ["Chapter 12 – Publishing Websites","Chapter12_Free_Preview.pdf"],
-  ["Complete HTML Book (All Chapters)","Fullbook_Free_Preview.pdf"]
+ ["Chapter 1 – HTML Basics","Chapter1_Free_Preview.pdf"],
+ ["Chapter 2 – Tools & Environment","Chapter2_Free_Preview.pdf"],
+ ["Chapter 3 – HTML Document Structure","Chapter3_Free_Preview.pdf"],
+ ["Chapter 4 – Text & Headings","Chapter4_Free_Preview.pdf"],
+ ["Chapter 5 – Links & Navigation","Chapter5_Free_Preview.pdf"],
+ ["Chapter 6 – Images & Media","Chapter6_Free_Preview.pdf"],
+ ["Chapter 7 – Lists","Chapter7_Free_Preview.pdf"],
+ ["Chapter 8 – Tables","Chapter8_Free_Preview.pdf"],
+ ["Chapter 9 – Forms","Chapter9_Free_Preview.pdf"],
+ ["Chapter 10 – Semantic HTML","Chapter10_Free_Preview.pdf"],
+ ["Chapter 11 – Best Practices","Chapter11_Free_Preview.pdf"],
+ ["Chapter 12 – Publishing Websites","Chapter12_Free_Preview.pdf"],
+ ["Complete HTML Book (All Chapters)","Fullbook_Free_Preview.pdf"]
 ];
 
-/* EXPLORE CHAPTERS */
 document.getElementById("exploreHTML").onclick = () => {
+
   const box = document.getElementById("chapterCards");
   box.innerHTML = "";
 
-  chapters.forEach(ch=>{
+  chapters.forEach(ch => {
+
+    /* ONLY PART CHANGED */
     box.innerHTML += `
       <div class="card">
         <h3>${ch[0]}</h3>
+
+        <div class="price-box">
+          ${
+            ch[0].includes("Complete")
+            ? `<span class="old-price">₹300</span>
+               <span class="new-price">₹240</span>
+               <span class="off-badge">20% OFF</span>`
+            : `<span class="old-price">₹30</span>
+               <span class="new-price">₹20</span>
+               <span class="off-badge">33% OFF</span>`
+          }
+        </div>
+
         <div class="actions">
           <button class="requestBtn">Request</button>
-          <button class="preview" onclick="window.open('${ch[1]}','_blank')">Preview</button>
+          <button class="preview"
+            onclick="window.open('${ch[1]}','_blank')">
+            Preview
+          </button>
         </div>
       </div>
     `;
+    /* END ONLY CHANGE */
+
   });
 
   document.getElementById("chapters").style.display = "block";
@@ -340,7 +385,6 @@ document.getElementById("exploreHTML").onclick = () => {
   });
 };
 
-/* MODAL */
 document.getElementById("closeModal").onclick = () => {
   document.getElementById("requestModal").style.display = "none";
 };
